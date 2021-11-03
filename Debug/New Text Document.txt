@@ -1,0 +1,425 @@
+#include<mpi/mpi.h>
+#include<iostream>
+#include<vector>
+#include<list>
+#include<string>
+#include<cmath>
+#include<algorithm>
+
+
+using namespace std;
+
+void sort(list<float> number,list<char> symble)
+{ 
+  
+int len=symble.size();
+list<char> ::iterator it = symble.begin();
+list<char> ::iterator it2 = symble.begin();
+list<char> ::iterator its = symble.begin();
+list<char> ::iterator end = symble.end();
+end--;
+end--;
+
+list<float> ::iterator itn = number.begin();
+list<float> ::iterator itns = number.begin();
+bool b=1;
+
+while (b)
+{
+	b=0;
+	for (it;it != end;it++, itn++)
+	{
+		cout << '1' << endl;
+		it2 = it;
+		its = it;
+		its++;
+		if ((*it2 == '+' || *it2 == '-') && (*(its) == '/' || *its == '*' || *its == '%'))
+		{
+			b=1;
+			swap(*it2, *its);
+			itns = itn;
+			itns++;
+			swap(*itn, *itns);
+			itns++;
+			itn++;
+			if (itns != number.end())
+			{
+
+				swap(*itn, *itns);
+			}
+
+		}
+		/*
+		1 2 3 2
+		+ * / =
+
+		2 3 1 2
+		* + / =
+
+
+		*/
+
+	}
+
+}
+cout<<"ggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"<<endl;
+
+for (it = symble.begin(),itn = number.begin() ;it != symble.end();it++, itn++)
+{
+	
+	cout<<*itn<<*it;
+
+}
+cout<<endl;
+
+
+int x;
+cin>>x;
+
+
+}
+
+int main (int *arge,char**argec)
+{ 
+int rank,size;
+MPI_Init(arge,&argec);
+MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+int x=5;
+int n=1;
+if (rank==0)
+{ 
+
+
+  char g='#';	 
+  list<float> df;
+  list<char> sym;
+
+	
+  float number;
+  cout << "enter the  number :";
+  cin >> number;
+  df.push_back(number);
+
+
+	while (true)
+	{
+		cout << "enter the symble :";
+		cin >> g;
+		sym.push_back(g);
+		if (g == '=')
+			break;
+		cout << "enter the  number :";
+		cin >> number;
+		df.push_back(number);
+
+	}
+
+	/*
+	1+2-5*7/3
+	*/
+
+	list<float>::iterator it = df.begin();
+
+	list<char>::iterator its = sym.begin();
+
+	while (df.size()!=1)
+	{
+		float reslut;
+		it = df.begin();
+		its = sym.begin();
+	if(*(its)=='*')
+	{
+
+
+
+	cout<<"adam"<<endl;
+
+	//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float one = *(it++);
+		df.pop_front();
+    cout<<"one"<<one<<endl;
+	MPI_Send(&one, 1, MPI_FLOAT, n, 1, MPI_COMM_WORLD);
+
+	
+//	cout << "size: " << sym.size() << "pop" << *(its) << endl;
+
+	char symble = *(its++);
+	sym.pop_front();
+	cout << "synm" << symble << endl;
+	MPI_Send(&symble, 1, MPI_CHAR,n, 1, MPI_COMM_WORLD);
+
+
+
+	//cout << "size: " << df.size() << "pop" << *(it) << endl;
+	float sec = *(it++);
+	df.pop_front();
+	cout << "sec" << sec << endl;
+	MPI_Send(&sec, 1, MPI_FLOAT, n, 1, MPI_COMM_WORLD);
+
+
+
+	MPI_Recv(&reslut, 1, MPI_FLOAT, n, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+	cout << "reslult: " << reslut << endl;
+	df.push_front(reslut);
+	cout << "sizee: " << df.size() << endl;
+
+
+
+	}
+
+
+	else if( *(its) == '+')
+	{  
+
+	//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float one = *(it++);
+		df.pop_front();
+
+		MPI_Send(&one, 1, MPI_FLOAT, 2, 2, MPI_COMM_WORLD);
+
+
+	//	cout << "size: " << sym.size() << "pop" << *(its) << endl;
+
+		char symble = *(its++);
+		sym.pop_front();
+
+		MPI_Send(&symble, 1, MPI_CHAR, 2, 2, MPI_COMM_WORLD);
+
+
+
+	//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float sec = *(it++);
+		df.pop_front();
+
+		MPI_Send(&sec, 1, MPI_FLOAT, 2, 2, MPI_COMM_WORLD);
+
+
+
+		MPI_Recv(&reslut, 1, MPI_FLOAT, 2, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		cout << "reslult: " << reslut << endl;
+		df.push_front(reslut);
+		//cout << "sizee: " << df.size() << endl;
+
+
+	
+	}
+
+	else if (*(its) == '-' )
+	{
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+	   float one = *(it++);
+		df.pop_front();
+
+		MPI_Send(&one, 1, MPI_FLOAT, 3, 3, MPI_COMM_WORLD);
+
+
+		//	cout << "size: " << sym.size() << "pop" << *(its) << endl;
+
+		char symble = *(its++);
+		sym.pop_front();
+
+		MPI_Send(&symble, 1, MPI_CHAR, 3, 3, MPI_COMM_WORLD);
+
+
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float sec = *(it++);
+		df.pop_front();
+
+		MPI_Send(&sec, 1, MPI_FLOAT, 3, 3, MPI_COMM_WORLD);
+
+
+
+		MPI_Recv(&reslut, 1, MPI_FLOAT, 3, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		cout << "reslult: " << reslut << endl;
+		df.push_front(reslut);
+	//	cout << "sizee: " << df.size() << endl;
+
+
+
+	}
+
+	else if (*(its) == '/' )
+	{
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float one = *(it++);
+		df.pop_front();
+
+		MPI_Send(&one, 1, MPI_FLOAT, 4, 4, MPI_COMM_WORLD);
+
+
+		//	cout << "size: " << sym.size() << "pop" << *(its) << endl;
+
+		char symble = *(its++);
+		sym.pop_front();
+		
+		MPI_Send(&symble, 1, MPI_CHAR, 4, 4, MPI_COMM_WORLD);
+
+
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float sec = *(it++);
+		df.pop_front();
+
+		MPI_Send(&sec, 1, MPI_FLOAT, 4, 4, MPI_COMM_WORLD);
+
+
+
+		MPI_Recv(&reslut, 1, MPI_FLOAT, 4, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		cout << "reslult: " << reslut << endl;
+		df.push_front(reslut);
+	//    cout << "sizee: " << df.size() << endl;
+
+
+
+	}
+	else if (*(its) == '%')
+	{
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float one = *(it++);
+		df.pop_front();
+
+		MPI_Send(&one, 1, MPI_FLOAT, 5, 5, MPI_COMM_WORLD);
+
+
+		//	cout << "size: " << sym.size() << "pop" << *(its) << endl;
+
+		char symble = *(its++);
+		sym.pop_front();
+
+		MPI_Send(&symble, 1, MPI_CHAR, 5, 5, MPI_COMM_WORLD);
+
+
+
+		//	cout << "size: " << df.size() << "pop" << *(it) << endl;
+		float sec = *(it++);
+		df.pop_front();
+
+		MPI_Send(&sec, 1, MPI_FLOAT, 5, 5, MPI_COMM_WORLD);
+
+
+
+		MPI_Recv(&reslut, 1, MPI_FLOAT, 5, 5, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		cout << "reslult: " << reslut << endl;
+		df.push_front(reslut);
+		//    cout << "sizee: " << df.size() << endl;
+
+
+
+	}
+
+	n++;
+	}
+	
+
+
+
+
+
+
+}
+
+
+
+
+			if(rank==n)
+			{
+			 char symble;
+			 float one , reslut,second;
+			 MPI_Recv(&one, 1, MPI_FLOAT, 0, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			 //cout<<"one: "<<one<<endl;
+			 MPI_Recv(&symble, 1, MPI_CHAR, 0, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			 //cout << "one: " << symble << endl;
+			 MPI_Recv(&second, 1, MPI_FLOAT, 0, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+			 //cout << "one: " << second << endl;
+			  reslut=one*second;
+			 // cout << "size: " <<reslut<<endl;
+
+			MPI_Send(&reslut, 1, MPI_FLOAT, 0, 1, MPI_COMM_WORLD);
+			cout << "oparetion is : * " << endl;
+
+
+			}
+
+
+
+
+
+
+
+
+	/*		else if (rank ==n+11)
+			{
+
+				char symble;
+				float one, reslut, second;
+				MPI_Recv(&one, 1, MPI_FLOAT, 0, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&symble, 1, MPI_CHAR, 0, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&second, 1, MPI_FLOAT, 0, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				reslut = one+second;
+				MPI_Send(&reslut, 1, MPI_FLOAT, 0, 2, MPI_COMM_WORLD);
+				cout << "oparetion is : +" << endl;
+
+
+
+			}
+			else if(rank==n+12)
+			{
+				char symble;
+				float one, reslut, second;
+				MPI_Recv(&one, 1, MPI_FLOAT, 0, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&symble, 1, MPI_CHAR, 0, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&second, 1, MPI_FLOAT, 0, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				reslut = one - second;
+				MPI_Send(&reslut, 1, MPI_FLOAT, 0, 3, MPI_COMM_WORLD);
+				cout << "oparetion is : -" << endl;
+
+
+
+			}
+			else if(rank==n+23)
+			{
+				char symble;
+				float one, reslut=0, second;
+				MPI_Recv(&one, 1, MPI_FLOAT, 0, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&symble, 1, MPI_CHAR, 0, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&second, 1, MPI_FLOAT, 0, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				if(second!=0)
+				reslut = one / second;
+				MPI_Send(&reslut, 1, MPI_FLOAT, 0, 4, MPI_COMM_WORLD);
+				cout << "oparetion is : /" << endl;
+
+
+
+			}
+			else if (rank == n+24)
+			{
+				char symble;
+				float one, reslut = 0, second,temp;
+				MPI_Recv(&one, 1, MPI_FLOAT, 0, 5, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&symble, 1, MPI_CHAR, 0, 5, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				MPI_Recv(&second, 1, MPI_FLOAT, 0, 5, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				if (second != 0)
+					reslut = one / second;
+					reslut= (reslut-trunc(reslut))*second;
+
+				MPI_Send(&reslut, 1, MPI_FLOAT, 0, 5, MPI_COMM_WORLD);
+				cout << "oparetion is : %" << endl;
+
+
+
+			}
+*/
+
+
+
+
+MPI_Finalize();
+return(0);
+
+}

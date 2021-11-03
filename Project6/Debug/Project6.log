@@ -1,0 +1,11 @@
+﻿  Source.cpp
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(639): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(657): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(615): warning C4101: 'temp': unreferenced local variable
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(633): warning C4101: 'temp': unreferenced local variable
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(653): warning C4101: 'temp': unreferenced local variable
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(653): warning C4101: 'second': unreferenced local variable
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(669): warning C4101: 'temp': unreferenced local variable
+c:\users\asdcx\documents\visual studio 2015\projects\project6\project6\source.cpp(669): warning C4101: 'second': unreferenced local variable
+  Project6.vcxproj -> C:\Users\asdcx\Documents\Visual Studio 2015\Projects\Project6\Debug\Project6.exe
+  Project6.vcxproj -> C:\Users\asdcx\Documents\Visual Studio 2015\Projects\Project6\Debug\Project6.pdb (Partial PDB)

@@ -1,0 +1,4 @@
+﻿  Source.cpp
+Source.obj : error LNK2019: unresolved external symbol MPI_Init referenced in function main
+Source.obj : error LNK2019: unresolved external symbol MPI_Finalize referenced in function main
+C:\Users\asdcx\Documents\Visual Studio 2015\Projects\Project6\x64\Debug\Project6.exe : fatal error LNK1120: 2 unresolved externals
